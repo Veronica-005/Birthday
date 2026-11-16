@@ -80,6 +80,12 @@
       box-shadow: 0 15px 35px rgba(232, 122, 144, 0.5);
     }
 
+    .envelope-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     /* Main Container */
     main {
       position: relative;
@@ -457,6 +463,146 @@
       min-height: 28px;
     }
 
+    /* Next Year Bucket List */
+    .bucket-list {
+      list-style: none;
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bucket-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .bucket-item:hover {
+      border-color: rgba(230, 194, 122, 0.4);
+      background: rgba(230, 194, 122, 0.06);
+    }
+
+    .bucket-checkbox {
+      width: 22px;
+      height: 22px;
+      border-radius: 6px;
+      border: 2px solid var(--accent-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      color: var(--bg-dark);
+      transition: all 0.25s ease;
+    }
+
+    .bucket-item.checked .bucket-checkbox {
+      background: var(--accent-gold);
+    }
+
+    .bucket-item.checked .bucket-text {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .bucket-text {
+      font-size: 0.96rem;
+      font-weight: 300;
+      transition: color 0.25s ease;
+    }
+
+    .bucket-add-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .bucket-input {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(230, 194, 122, 0.35);
+      border-radius: 30px;
+      padding: 11px 18px;
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .bucket-input:focus {
+      border-color: var(--accent-gold);
+    }
+
+    /* Spin the Date Wheel */
+    .wheel-section {
+      text-align: center;
+    }
+
+    .wheel-wrapper {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 24px auto 14px;
+    }
+
+    .wheel-pointer {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 14px solid transparent;
+      border-right: 14px solid transparent;
+      border-top: 24px solid var(--accent-gold);
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+      z-index: 5;
+    }
+
+    #date-wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 30px rgba(232, 122, 144, 0.3), inset 0 0 15px rgba(0,0,0,0.4);
+      border: 4px solid var(--accent-gold);
+      transition: transform 4.2s cubic-bezier(0.17, 0.67, 0.14, 0.99);
+    }
+
+    .wheel-center-cap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 3px solid var(--accent-gold);
+      color: var(--accent-rose);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+      z-index: 4;
+    }
+
+    #wheel-result {
+      margin-top: 18px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      color: var(--accent-gold);
+      min-height: 36px;
+    }
+
     /* Timeline */
     .timeline {
       border-left: 2px solid rgba(230, 194, 122, 0.3);
@@ -666,6 +812,13 @@
       .card {
         padding: 24px;
       }
+      .wheel-wrapper {
+        width: 260px;
+        height: 260px;
+      }
+      .bucket-add-row {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -720,7 +873,7 @@
       <div class="signature" id="letter-signature">Forever yours</div>
     </section>
 
-    <!-- Open When Envelopes -->
+    <!-- "Open When..." Envelopes -->
     <section class="card">
       <h2>"Open When..." Letters</h2>
       <p style="color: var(--text-muted); font-size: 0.92rem;">
@@ -752,6 +905,17 @@
       <div class="gallery-grid" id="gallery-container"></div>
     </section>
 
+    <!-- Special Video Memory Section -->
+    <section class="card" style="text-align: center;">
+      <h2>Our Special Video Memory</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+        Press play to relive one of my favorite moments with you.
+      </p>
+      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(230, 194, 122, 0.3);">
+        <iframe id="embed-video" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
+      </div>
+    </section>
+
     <!-- Interactive Reasons Deck -->
     <section class="card">
       <h2>Little Things I Adore About You</h2>
@@ -773,6 +937,49 @@
         <div style="margin-top: 16px; display: none;" id="quiz-next-wrap">
           <button class="btn-secondary" onclick="nextQuestion()">Next Question →</button>
         </div>
+      </div>
+    </section>
+
+    <!-- Bucket List For Our Next Year -->
+    <section class="card">
+      <h2>Our Next Year Bucket List</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Adventures I want us to check off together before your next birthday—tap to check them off or add your own idea!
+      </p>
+      <ul class="bucket-list" id="bucket-list-container"></ul>
+      <div class="bucket-add-row">
+        <input type="text" id="bucket-input" class="bucket-input" placeholder="Add a dream date or trip idea..." onkeypress="if(event.key==='Enter') addBucketItem()" />
+        <button class="btn-secondary" onclick="addBucketItem()">+ Add Idea</button>
+      </div>
+    </section>
+
+    <!-- Spin the Date Night Wheel & Rules -->
+    <section class="card wheel-section">
+      <h2>Spin the Date Night Picker</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Spin to pick from our 30 special date activities! Whoever spins gets to choose the snacks 🤣❤️
+      </p>
+
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer"></div>
+        <canvas id="date-wheel" width="300" height="300"></canvas>
+        <div class="wheel-center-cap">♥</div>
+      </div>
+
+      <button class="envelope-btn" id="spin-btn" style="margin-top: 10px;" onclick="spinWheel()">Spin for Our Date ✨</button>
+      <p id="wheel-result"></p>
+
+      <!-- Rules Box -->
+      <div style="margin-top: 30px; text-align: left; background: rgba(0,0,0,0.25); border: 1px solid rgba(230,194,122,0.25); border-radius: 14px; padding: 20px;">
+        <h3 style="font-family: 'Cormorant Garamond', serif; color: var(--accent-gold); font-size: 1.3rem; margin-bottom: 12px; text-align: center;">❤️ Bonus Rules & Agreement</h3>
+        <ul style="list-style-type: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.92rem; font-weight: 300;">
+          <li>• No rejecting the activity just because you don't like it.</li>
+          <li>• Take turns spinning.</li>
+          <li>• Phones away during the activity.</li>
+          <li>• No arguments over who won. 😂</li>
+          <li>• Both people must participate.</li>
+          <li style="color: var(--accent-rose); font-weight: 500; margin-top: 6px;">👉 <strong>Your Rule:</strong> Whoever spins gets to choose the snacks! 🤣❤️</li>
+        </ul>
       </div>
     </section>
 
@@ -827,6 +1034,9 @@
       
       // Format: "YYYY-MM-DDTHH:MM:SS"
       relationshipStartDate: "2024-06-15T00:00:00", 
+
+      // Paste your YouTube Video ID here for the video section
+      youtubeVideoId: "YOUR_YOUTUBE_VIDEO_ID",
 
       // Hidden scratchcard message
       secretNote: "No matter how busy life gets, my heart will always choose you—today, tomorrow, and every birthday after. Your special birthday treat awaits tonight! ♥",
@@ -889,6 +1099,49 @@
         }
       ],
 
+      // Bucket List Items for Next Year
+      bucketList: [
+        "Take a spontaneous weekend road trip together",
+        "Have a sunset picnic & ice cream date at the park",
+        "Cook a full dinner together from scratch",
+        "Dress up for a fancy candlelit dinner date",
+        "Take 100 more silly and romantic photos together"
+      ],
+
+      // All 30 Date Night Activities for the Wheel
+      wheelOptions: [
+        "1. Cook a meal together.",
+        "2. Have a movie night with snacks.",
+        "3. Go on a romantic evening walk.",
+        "4. Ask each other 10 deep questions.",
+        "5. Have a pillow fight.",
+        "6. Take cute pictures together.",
+        "7. Dance together to your favourite song.",
+        "8. Pray together.",
+        "9. Give each other a relaxing massage.",
+        "10. Recreate your first date.",
+        "11. Play truth or dare.",
+        "12. Have a cooking competition.",
+        "13. Share three things you love about each other.",
+        "14. Plan your dream holiday.",
+        "15. Have a phone-free evening.",
+        "16. Go out for ice cream.",
+        "17. Give each other funny nicknames.",
+        "18. Share your childhood memories.",
+        "19. Have a karaoke session.",
+        "20. Write each other love notes.",
+        "21. Play cards or board games.",
+        "22. Have a mini picnic.",
+        "23. Discuss your future together.",
+        "24. Give each other 5-minute compliments.",
+        "25. Try a new recipe.",
+        "26. Watch a comedy and laugh together.",
+        "27. Have a questions-about-us quiz.",
+        "28. Exchange small surprise gifts.",
+        "29. Talk about your biggest dreams and fears.",
+        "30. Spend an hour cuddling and talking."
+      ],
+
       // Add your own image file names (e.g., "photo1.jpg" placed in the same folder)
       photos: [
         {
@@ -934,10 +1187,11 @@
     };
     // ========================================================
 
-    // Populate Names, Secret & Letter
+    // Populate Names, Secret, Letter & Video
     document.getElementById("hero-name").textContent = `Happy Birthday, ${config.hisName}`;
     document.getElementById("letter-signature").textContent = `Forever yours, ${config.yourName}`;
     document.getElementById("secret-text").textContent = config.secretNote;
+    document.getElementById("embed-video").src = `https://www.youtube.com/embed/${config.youtubeVideoId}`;
 
     const letterContainer = document.getElementById("letter-body");
     config.letterParagraphs.forEach(text => {
@@ -979,6 +1233,96 @@
       `;
       galleryContainer.appendChild(card);
     });
+
+    // Populate Bucket List
+    const bucketContainer = document.getElementById("bucket-list-container");
+    function renderBucketItem(text) {
+      const li = document.createElement("li");
+      li.className = "bucket-item";
+      li.innerHTML = `
+        <span class="bucket-checkbox">✓</span>
+        <span class="bucket-text">${text}</span>
+      `;
+      li.onclick = () => {
+        li.classList.toggle("checked");
+        if (li.classList.contains("checked")) burstParticles();
+      };
+      bucketContainer.appendChild(li);
+    }
+    config.bucketList.forEach(item => renderBucketItem(item));
+
+    function addBucketItem() {
+      const input = document.getElementById("bucket-input");
+      const val = input.value.trim();
+      if (!val) return;
+      renderBucketItem(val);
+      input.value = "";
+      burstParticles();
+    }
+
+    // Draw & Spin Date Night Wheel
+    const wheelCanvas = document.getElementById("date-wheel");
+    const wCtx = wheelCanvas.getContext("2d");
+    const slices = config.wheelOptions;
+    const sliceColors = ["#3a1f3d", "#b84a62", "#2b1934", "#c59b27", "#482344", "#9e3b52"];
+    let currentRotation = 0;
+    let isSpinning = false;
+
+    function drawWheel() {
+      const numSlices = slices.length;
+      const arcSize = (2 * Math.PI) / numSlices;
+      const centerX = wheelCanvas.width / 2;
+      const centerY = wheelCanvas.height / 2;
+      const radius = centerX;
+
+      wCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
+
+      for (let i = 0; i < numSlices; i++) {
+        const angle = i * arcSize - Math.PI / 2;
+        wCtx.beginPath();
+        wCtx.moveTo(centerX, centerY);
+        wCtx.arc(centerX, centerY, radius, angle, angle + arcSize);
+        wCtx.fillStyle = sliceColors[i % sliceColors.length];
+        wCtx.fill();
+        wCtx.strokeStyle = "rgba(230, 194, 122, 0.35)";
+        wCtx.lineWidth = 1;
+        wCtx.stroke();
+      }
+
+      // Center decorative badge on wheel
+      wCtx.beginPath();
+      wCtx.arc(centerX, centerY, 36, 0, 2 * Math.PI);
+      wCtx.fillStyle = "#120d16";
+      wCtx.fill();
+      wCtx.lineWidth = 2;
+      wCtx.strokeStyle = "#e6c27a";
+      wCtx.stroke();
+    }
+    drawWheel();
+
+    function spinWheel() {
+      if (isSpinning) return;
+      isSpinning = true;
+      const spinBtn = document.getElementById("spin-btn");
+      const resultEl = document.getElementById("wheel-result");
+      spinBtn.disabled = true;
+      resultEl.textContent = "Spinning...";
+
+      const extraSpins = 6 * 360;
+      const randomDeg = Math.floor(Math.random() * 360);
+      currentRotation += extraSpins + randomDeg;
+      wheelCanvas.style.transform = `rotate(${currentRotation}deg)`;
+
+      setTimeout(() => {
+        const normalizedDeg = currentRotation % 360;
+        const sliceDeg = 360 / slices.length;
+        const winningIndex = Math.floor(((360 - normalizedDeg) % 360) / sliceDeg);
+        resultEl.textContent = `Selected: ${slices[winningIndex]} (You choose the snacks! 🤣❤️)`;
+        burstParticles();
+        isSpinning = false;
+        spinBtn.disabled = false;
+      }, 4250);
+    }
 
     // Populate Timeline
     const timelineContainer = document.getElementById("timeline-container");
