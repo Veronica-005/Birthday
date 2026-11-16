@@ -905,17 +905,6 @@
       <div class="gallery-grid" id="gallery-container"></div>
     </section>
 
-    <!-- Special Video Memory Section -->
-    <section class="card" style="text-align: center;">
-      <h2>Our Special Video Memory</h2>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 20px;">
-        Press play to relive one of my favorite moments with you.
-      </p>
-      <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; border: 1px solid rgba(230, 194, 122, 0.3);">
-        <iframe id="embed-video" src="" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen></iframe>
-      </div>
-    </section>
-
     <!-- Interactive Reasons Deck -->
     <section class="card">
       <h2>Little Things I Adore About You</h2>
@@ -1034,9 +1023,6 @@
       
       // Format: "YYYY-MM-DDTHH:MM:SS"
       relationshipStartDate: "2024-06-15T00:00:00", 
-
-      // Paste your YouTube Video ID here for the video section
-      youtubeVideoId: "YOUR_YOUTUBE_VIDEO_ID",
 
       // Hidden scratchcard message
       secretNote: "No matter how busy life gets, my heart will always choose you—today, tomorrow, and every birthday after. Your special birthday treat awaits tonight! ♥",
@@ -1187,11 +1173,10 @@
     };
     // ========================================================
 
-    // Populate Names, Secret, Letter & Video
+    // Populate Names, Secret & Letter
     document.getElementById("hero-name").textContent = `Happy Birthday, ${config.hisName}`;
     document.getElementById("letter-signature").textContent = `Forever yours, ${config.yourName}`;
     document.getElementById("secret-text").textContent = config.secretNote;
-    document.getElementById("embed-video").src = `https://www.youtube.com/embed/${config.youtubeVideoId}`;
 
     const letterContainer = document.getElementById("letter-body");
     config.letterParagraphs.forEach(text => {
